@@ -1,6 +1,7 @@
 
 import styled from 'styled-components'
 import Character from './components/Character'
+import Inventory from './components/Main/Inventory';
 
 const Container = styled.div`
   max-width: 600px;
@@ -22,7 +23,8 @@ const items = [
 function App() {
   return (
     <Container>
-      <Character character={{items}} action='stand1' />
+      <Character character={{ items }} action="stand1" />
+      <Inventory />
     </Container>
   );
 }
