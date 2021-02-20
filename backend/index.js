@@ -11,6 +11,12 @@ const app = express();
 const server = http.createServer(app);
 const wss = new WebSocket.Server({ server });
 
+const monster = {
+    attack: true,
+    id: '2600225',
+    hp: 10000
+}
+
 app.get('/', (req, res) => {
     res.send('The backend is running.')
 })
@@ -27,12 +33,9 @@ wss.on('connection', ws => {
     ws.uuid = uuid
     connections[uuid] = ws
     ws.send('Successful connection!')
+    
+    broadcast(JSON.stringify(monster))
     updateUsers()
-
-    const monster = {
-        id: 2600225,
-        hp: 10000
-    }
 
     ws.on('message', message => {
         let data;
@@ -47,7 +50,6 @@ wss.on('connection', ws => {
             ws.username = data.username
             users[data.username] = data.color
             updateUsers();
-            broadcast(JSON.stringify(monster))
         }
 
         if (data.getUsers) {

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import Character from "./components/Character";
 import Item from "./components/Item";
-import ProgressBar from "./components/ProgressBar";
+import Monster from "./components/Monster";
 import Signin from './components/Signin'
 import initWebsocket from './util/websocket'
 import Inventory from './components/Main/Inventory';
@@ -40,7 +40,7 @@ function App() {
       {inventory.items.map((item) => (
         <Item id={item} />
       ))}
-      <ProgressBar percentage={66} />
+      <Monster />
       <Inventory />
     </Container>
   );
