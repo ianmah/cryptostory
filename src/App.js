@@ -3,6 +3,9 @@ import styled from "styled-components";
 import Character from "./components/Character";
 import Item from "./components/Item";
 import ProgressBar from "./components/ProgressBar";
+import styled from 'styled-components'
+import Character from './components/Character'
+import Inventory from './components/Main/Inventory';
 
 const Container = styled.div`
   max-width: 600px;
@@ -33,6 +36,7 @@ function App() {
         <Item id={item} />
       ))}
       <ProgressBar percentage={66} />
+      <Inventory />
     </Container>
   );
 }
