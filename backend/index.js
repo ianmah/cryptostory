@@ -29,6 +29,11 @@ wss.on('connection', ws => {
     ws.send('Successful connection!')
     updateUsers()
 
+    const monster = {
+        id: 2600225,
+        hp: 10000
+    }
+
     ws.on('message', message => {
         let data;
         console.log(`New message from ${ws.uuid}:\n    ${message}`)
@@ -42,10 +47,18 @@ wss.on('connection', ws => {
             ws.username = data.username
             users[data.username] = data.color
             updateUsers();
+            broadcast(JSON.stringify(monster))
         }
 
         if (data.getUsers) {
             updateUsers();
+        }
+        
+        if (data.attack) {
+            monster.hp = monster.hp - data.dmg
+            console.log(monster)
+            broadcast(JSON.stringify(monster))
+            return
         }
 
         console.log(data)

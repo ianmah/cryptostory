@@ -25,10 +25,14 @@ const Grid = styled.div`
   grid-template-columns: repeat(2, auto);
 `;
 
+const attack = (dmg) => {
+  window.ws.send(JSON.stringify({ attack: true, dmg }))
+}
+
 export default function Inventory(props) {
   return (
     <Section>
-      <AttackButton>Attack</AttackButton>
+      <AttackButton onClick={() => attack(69)}>Attack</AttackButton>
       <Grid>
         <InventoryButton>Inventory</InventoryButton>
         <ShopButton>Shop</ShopButton>

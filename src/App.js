@@ -24,10 +24,6 @@ const items = [
   },
 ];
 
-const attack = (dmg) => {
-  window.ws.send(JSON.stringify({ attack: true, dmg }))
-}
-
 function App() {
   if (!window.ws) {
     initWebsocket()
