@@ -1,6 +1,7 @@
-
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import Character from './components/Character'
+import Item from './components/Item'
 
 const Container = styled.div`
   max-width: 600px;
@@ -20,9 +21,17 @@ const items = [
 ]
 
 function App() {
+  const [inventory, setInventory] = useState({
+    items: ['1001021', '1082059']
+  });
+  
+
   return (
     <Container>
       <Character character={{items}} action='stand1' />
+      {
+        inventory.items.map(item => <Item id={item} />)
+      }
     </Container>
   );
 }
