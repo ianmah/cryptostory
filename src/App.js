@@ -101,11 +101,11 @@ function App() {
         const character = await charaContract.methods.characters(i - 1).call();
         const owner = await charaContract.methods.ownerOf(i - 1).call();
         if (owner === accounts[0]) {
-          setCharacter(character)
           result.push(character)
         }
-        setCharacters(result)
       }
+      setCharacters(result)
+      setCharacter(result[0])
     } else {
       window.alert(`smart contract not on network`);
     }
@@ -126,7 +126,7 @@ function App() {
       <Monster />
       <Inventory />
       <Storage character={character} inventory={inventory} />
-      <Characters characters={characters} />
+      <Characters characters={characters} setCharacter={setCharacter} />
     </Container>
   );
 }

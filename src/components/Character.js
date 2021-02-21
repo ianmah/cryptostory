@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { getCharacter } from '../util/maplestoryio'
 
-const Character = ({items, action}) => {
+const Character = ({items, action, ...props}) => {
     const [characterImg, setCharacterImg] = useState();
 
     useEffect(() => {
@@ -14,7 +14,7 @@ const Character = ({items, action}) => {
     
 
     return (
-        <img src={characterImg} alt='Character'/>
+        <img src={characterImg} alt='Character' {...props} />
     )
 }
 

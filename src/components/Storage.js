@@ -14,23 +14,24 @@ const DisplayTitle = styled.div`
   font-size: 35px;
 `;
 
+const baseBody = {
+    2000: true,
+    12000: true
+}
 
 const Storage = ({character, inventory}) => {
 
-    const [items, setItems] = useState({
-        2000: true,
-        12000: true
-    })
+    const [items, setItems] = useState(baseBody)
     
     useEffect(() => {
         if (character.hair) {
             setItems({
-                ...items,
+                ...baseBody,
                 [character.hair]: true,
                 [character.face]: true,
             })
         }
-    }, [character])
+    }, [character.hair, character.face])
 
     const [attack, setAttack] = useState(0)
 
