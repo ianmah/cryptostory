@@ -7,6 +7,7 @@ contract Character is ERC721Full {
   mapping(uint256 => Hero) public tokenProperty;
 
   struct Hero{
+    uint id;
     string hair;
     string face;
     uint attack;
@@ -46,15 +47,15 @@ contract Character is ERC721Full {
     uint _attack = rand(0,100);
 
 
-    characters.push(Hero({hair: _hair, face: _face, attack: _attack, mother: 0, father : 0}));
-    tokenProperty[_tokenId] = Hero({hair: _hair, face: _face, attack: _attack, mother: 0, father: 0}); 
+    characters.push(Hero({id: _tokenId, hair: _hair, face: _face, attack: _attack, mother: 0, father : 0}));
+    tokenProperty[_tokenId] = Hero({id: _tokenId, hair: _hair, face: _face, attack: _attack, mother: 0, father: 0}); 
 
     _mint(msg.sender, _tokenId);
   }
 
-  function getTokenProperties(uint256 _tokenId) external view returns (string memory _hair, string memory _face,
+  function getTokenProperties(uint256 _tokenId) external view returns(uint _id, string memory _hair, string memory _face,
    uint _attack, uint _mother, uint _father) {
-      return (tokenProperty[_tokenId].hair, tokenProperty[_tokenId].face, tokenProperty[_tokenId].attack,
+      return (tokenProperty[_tokenId].id, tokenProperty[_tokenId].hair, tokenProperty[_tokenId].face, tokenProperty[_tokenId].attack,
       tokenProperty[_tokenId].mother, tokenProperty[_tokenId].father);
   }
 
@@ -119,22 +120,22 @@ contract Character is ERC721Full {
     
     // _face = tokenProperty[fatherid].face;    
 
-    characters.push(Hero({hair: _hair, face: _face, attack: _attack, mother: motherid, father : fatherid}));
-    tokenProperty[_tokenId] = Hero({hair: _hair, face: _face, attack: _attack, mother: motherid, father: fatherid}); 
+    characters.push(Hero({id: _tokenId, hair: _hair, face: _face, attack: _attack, mother: motherid, father : fatherid}));
+    tokenProperty[_tokenId] = Hero({id: _tokenId, hair: _hair, face: _face, attack: _attack, mother: motherid, father: fatherid}); 
 
     _mint(msg.sender, _tokenId);
   }
 
 
-  /** @dev Function to breed 2 vipers to create a new one
-    * @param matronId ID of new viper's matron (one parent)
-    * @param sireId ID of new viper's sire (other parent)
-    * @return The new viper's ID
-    */
-  function breedHero(uint256 matronId, uint256 sireId) external payable returns (uint256) {
-      require(msg.value == 0.05 ether);
-      return createHero(matronId, sireId);
-  }
+  // /** @dev Function to breed 2 vipers to create a new one
+  //   * @param matronId ID of new viper's matron (one parent)
+  //   * @param sireId ID of new viper's sire (other parent)
+  //   * @return The new viper's ID
+  //   */
+  // function breedHero(uint256 matronId, uint256 sireId) external payable returns (uint256) {
+  //     require(msg.value == 0.05 ether);
+  //     return createHero(matronId, sireId);
+  // }
 
 
   function uint2str(uint _i) internal pure returns (string memory _uintAsString) {
