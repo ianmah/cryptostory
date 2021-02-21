@@ -1,21 +1,28 @@
-import React, { useState, useEffect } from 'react'
-import { getCharacter } from '../util/maplestoryio'
+import React, { useState, useEffect } from 'react';
+import { getCharacter } from '../util/maplestoryio';
+import styled from 'styled-components';
 
-const Character = ({items, action}) => {
-    const [characterImg, setCharacterImg] = useState();
+const StyleImage = styled.img`
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
+  bottom: 50px;
+  position: absolute;
+`;
 
-    useEffect(() => {
-        const get = async () => {
-            const blob = await getCharacter(items, action)
-            setCharacterImg(blob)
-        }
-        get()
-    }, [items, action])
-    
+const Character = ({ items, action }) => {
+  const [characterImg, setCharacterImg] = useState();
 
-    return (
-        <img src={characterImg} alt='Character'/>
-    )
-}
+  useEffect(() => {
+    const get = async () => {
+      const blob = await getCharacter(items, action);
+      setCharacterImg(blob);
+    };
+    get();
+  }, [items, action]);
 
-export default Character
+  return <StyleImage src={characterImg} alt="Character" />;
+};
+
+export default Character;

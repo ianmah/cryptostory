@@ -1,20 +1,31 @@
-import React from "react";
-import styled from "styled-components";
+import React from 'react';
+import styled from 'styled-components';
 
 const StyledProgressBar = styled.div`
-  margin: auto;
+  // margin: auto;
   position: relative;
   height: 20px;
-  width: 350px;
-  border-radius: 50px;
+  width: 99.7%;
+  border-radius: 3px;
   border: 1px solid #333;
+  background-color: #424242;
 `;
 
 const StyledFilter = styled.div`
-  background: #1da598;
+  background: #ff3333;
   height: 100%;
   border-radius: inherit;
-  transition: width 0.2s ease-in;
+  transition: width 0.1s ease-in;
+`;
+
+const Percent = styled.p`
+  z-index: 1;
+  color: white;
+  position: absolute;
+  margin:auto;
+  left: 0;
+  right: 0;
+  text-align: center;
 `;
 
 const Filter = (props) => {
@@ -24,6 +35,7 @@ const Filter = (props) => {
 const ProgressBar = (props) => {
   return (
     <StyledProgressBar>
+      <Percent>{props.percentage}%</Percent>
       <Filter percentage={props.percentage} />
     </StyledProgressBar>
   );

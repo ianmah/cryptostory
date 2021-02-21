@@ -5,16 +5,17 @@ import ProgressBar from './ProgressBar'
 // https://maplestory.io/api/GMS/220/mob/2600225/render/stand/animated?resize=2
 
 const StyledImg = styled.img`
-    height: 50%;
-    max-height: 400px;
-    padding: 1em;
-    position: absolute;
-    margin-left: auto;
-    margin-right: auto;
-    left: 0;
-    right: 0;
-    bottom: 38px;
-`
+  height: 50%;
+  max-height: 400px;
+  padding: 1em;
+  position: absolute;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
+  bottom: 35px;
+  image-rendering: pixelated;
+`;
 
 const Container = styled.div`
   position: relative;
