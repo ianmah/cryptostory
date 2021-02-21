@@ -46,7 +46,7 @@ export default function Inventory(props) {
       <BtnContainer>
         <InventoryButton>Inventory</InventoryButton>
         <ShopButton>Shop</ShopButton>
-        <Button>Breed</Button>
+        <Button onClick={props.openMarket}>Breed</Button>
         <Button>Party</Button>
       </BtnContainer>
     </Section>
