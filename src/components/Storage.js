@@ -24,9 +24,11 @@ const Storage = ({inventory}) => {
 
         if (newItems[item.id]) {
             setAttack(attack + item.attack)
+            window.attack = attack + item.attack
         }
         else {
             setAttack(attack - item.attack)
+            window.attack = attack - item.attack
         }
         
     }
@@ -43,8 +45,9 @@ const Storage = ({inventory}) => {
             <br />
             
             {inventory.items.map((item) => (
-                <Item key={item} onClick={() => equip(item)} id={item.id} />
+                <Item key={item.id} onClick={() => equip(item)} id={item.id} />
             ))}
+            
         </Container>
     )
     
