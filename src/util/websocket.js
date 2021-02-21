@@ -1,10 +1,10 @@
   
-const WEBHOOK_URL = 'localhost:1337/'
+const WEBHOOK_URL = 'mighty-escarpment-41139.herokuapp.com/'
 
 const initWebsocket = () => {
   console.log('Websocket inited')
 //   window.ws = new WebSocket(`wss://${WEBHOOK_URL}`)
-  window.ws = new WebSocket(`ws://${WEBHOOK_URL}`)
+  window.ws = new WebSocket(`wss://${WEBHOOK_URL}`)
   const ws = window.ws
   
   ws.onopen = () => {

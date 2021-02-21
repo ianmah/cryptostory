@@ -26,7 +26,7 @@ app.get('/', (req, res) => {
 })
 
 setInterval(function () {
-    https.get("https://TODOTODOTODO.herokuapp.com/");
+    https.get("https://mighty-escarpment-41139.herokuapp.com/");
     console.log('server pinged');
 }, 600000);
 
