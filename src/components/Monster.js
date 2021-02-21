@@ -18,6 +18,20 @@ const StyledImg = styled.img`
   image-rendering: pixelated;
 `;
 
+const Characters = styled.div`
+  position: absolute;
+  bottom: 40px;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
+`
+
+const StyledCharacter = styled(Character)`
+  max-height: 100px;
+  margin: 0 0px;
+`
+
 const Container = styled.div`
   position: relative;
   width: 100%;
@@ -56,13 +70,13 @@ const MonsterWrapper = () => {
       <Container>
           <ProgressBar percentage={(monster.hp / 10000) * 100} />
           <Monster id={monster.id} />
+          <Characters>
           {
             users.map((user, i) => {
-              console.log(user)
-              return <Character key={i} items={user} action="stand1" />
-              
+              return <StyledCharacter key={i} items={user} action="stabO2" />
             })
           }
+          </Characters>
       </Container>
     );
 }
