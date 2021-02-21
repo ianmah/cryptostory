@@ -28,8 +28,15 @@ function App() {
     initWebsocket();
   }
 
+  const setCharacter = (character) => {
+    console.log(character)
+    const ws = window.ws
+    ws.readyState === 1 && ws.send(JSON.stringify({ newUser: true, color: character }))
+    setCharacterState(character)
+  }
+
   const [characters, setCharacters] = useState([])
-  const [character, setCharacter] = useState({})
+  const [character, setCharacterState] = useState({})
 
   const [inventory, setInventory] = useState({
     items: [],
@@ -42,7 +49,11 @@ function App() {
 
   const [openMarket, setOpenMarket] = useState(false);
   const [market, setMarket] = useState([]);
-  const [attack, setAttack] = useState(0);
+  const setAttack = (attack) => {
+    window.attack = attack
+    setAttackState(attack)
+  }
+  const [attack, setAttackState] = useState(0);
 
   useEffect(() => {
     loadWeb3();

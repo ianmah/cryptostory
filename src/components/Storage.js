@@ -73,10 +73,8 @@ const Storage = ({ character = {}, inventory, attack, setAttack }) => {
 
     if (newItems[item.id]) {
       setAttack(attack + item.attack);
-      window.attack = attack + item.attack;
     } else {
       setAttack(attack - item.attack);
-      window.attack = attack - item.attack;
     }
   };
 
