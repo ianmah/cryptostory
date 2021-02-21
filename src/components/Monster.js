@@ -1,12 +1,25 @@
 import React, { useState } from 'react'
-import ProgressBar from "./ProgressBar";
+import styled from 'styled-components'
+import ProgressBar from './ProgressBar'
 
 // https://maplestory.io/api/GMS/220/mob/2600225/render/stand/animated?resize=2
+
+const StyledImg = styled.img`
+    max-height: 400px;
+    padding: 1em;
+`
+
+const Container = styled.div`
+    width: 100%;
+    height: 450px;
+    text-align: center;
+`
+
 
 const Monster = ({id}) => {
     
     return (
-        <img src={`https://maplestory.io/api/GMS/220/mob/${id}/render/stand/animated?resize=2`} alt={`monster ${id}`} />
+        <StyledImg src={`https://maplestory.io/api/GMS/220/mob/${id}/render/stand/animated?resize=2`} alt={`monster ${id}`} />
     )
     
 }
@@ -25,10 +38,10 @@ const MonsterWrapper = () => {
     }
 
     return (
-        <>
+        <Container>
             <ProgressBar percentage={monster.hp / 10000 * 100} />
             <Monster id={monster.id} />
-        </>
+        </Container>
     )
 }
 

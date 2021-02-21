@@ -7,7 +7,10 @@ const AttackButton = styled(Button)`
   height: 15em;
   margin-right: 2em;
   flex-basis: initial;
+  background-color: #E64E2C;
+  box-shadow: -6px 6px #BC381B, -3px 3px #BC381B, -1px 1px #BC381B;
 `;
+
 const InventoryButton = styled(Button)`
   background-color: blue;
 `
