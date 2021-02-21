@@ -9,6 +9,7 @@ import initWebsocket from './util/websocket';
 import Inventory from './components/Main/Inventory';
 import Storage from './components/Storage';
 import Web3 from 'web3';
+import Minter from './components/Minter';
 
 const Container = styled.div`
   max-width: 600px;
@@ -25,10 +26,11 @@ function App() {
   const [inventory, setInventory] = useState({
     items: ['1001021', '1082059'],
   });
-  
+
   const [account, setAccount] = useState('');
   const [contract, setContract] = useState(null);
-  
+  const [allItems, setAllItems] = useState([]);
+
   useEffect(() => {
     loadWeb3();
     loadBlockchainData();
@@ -44,38 +46,26 @@ function App() {
       window.alert('Non-Ethereum browser detected');
     }
   };
-  
+
   const loadBlockchainData = async () => {
     const web3 = window.web3;
     const accounts = await web3.eth.getAccounts();
     setAccount(accounts[0]);
-    
+
     const networkId = await web3.eth.net.getId();
     const networkData = CryptoItem.networks[networkId];
     if (networkData) {
       const abi = CryptoItem.abi;
       const address = networkData.address;
-      console.log(address)
       const contract = new web3.eth.Contract(abi, address);
       setContract(contract);
-      // const test = await contract.methods.totalSupply()
-      // console.log(test);
-      contract.methods.mint('121233').send({ from: accounts[0], gas: 4712388, gasPrice: 100000000000 })
-        .once('receipt', (receipt) => {
-          console.log(receipt)
-        });
-
       const totalSupply = await contract.methods.totalSupply().call();
-      console.log(totalSupply);
-
-      const result = [];
-
-      //load items 
-      for(var i = 1; i <= totalSupply; i++){
+      //load items
+      for (var i = 1; i <= totalSupply; i++) {
         const item = await contract.methods.items(i - 1).call();
-        result.push(item);
+        allItems.push(item);
+        setAllItems(allItems);
       }
-      console.log(result);
     } else {
       window.alert(`smart contract not on network`);
     }
@@ -84,11 +74,17 @@ function App() {
   return (
     <Container>
       <Signin />
+      <Minter
+        account={account}
+        contract={contract}
+        allItems={allItems}
+        setAllItems={setAllItems}
+      />
       <Monster />
       <Inventory />
-      <Storage inventory={inventory}/>
+      <Storage inventory={inventory} />
     </Container>
-  )
+  );
 }
 
 export default App;
