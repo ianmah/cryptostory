@@ -5,7 +5,6 @@ import Button from './Button'
 const AttackButton = styled(Button)`
   width: 15em;
   height: 15em;
-  margin-right: 2em;
   flex-basis: initial;
 `;
 const InventoryButton = styled(Button)`
@@ -27,8 +26,6 @@ const BtnContainer = styled.div`
   display: flex;
   flex-flow: row wrap;
   justify-content: space-evenly;
-  align-items: center;
-  height: 100%;
 `;
 
 const attack = (dmg) => {
@@ -38,7 +35,9 @@ const attack = (dmg) => {
 export default function Inventory(props) {
   return (
     <Section>
+      <BtnContainer>
         <AttackButton onClick={() => attack(3333)}>Attack</AttackButton>
+      </BtnContainer>
       <BtnContainer>
         <InventoryButton>Inventory</InventoryButton>
         <ShopButton>Shop</ShopButton>
