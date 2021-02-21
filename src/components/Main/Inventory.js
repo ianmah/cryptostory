@@ -5,10 +5,12 @@ import Button from './Button'
 const AttackButton = styled(Button)`
   width: 15em;
   height: 15em;
-  margin-right: 2em;
   flex-basis: initial;
   font-family: 'Cool-font';
+  background-color: #E64E2C;
+  box-shadow: -6px 6px #BC381B, -3px 3px #BC381B, -1px 1px #BC381B;
 `;
+
 const InventoryButton = styled(Button)`
   background-color: blue;
 `
@@ -20,7 +22,6 @@ const Section = styled.section`
   display:flex;
   justify-content: space-evenly;
   align-items: center;
-  border: black solid 1px;
   height: 15em;
 `
 
@@ -28,8 +29,6 @@ const BtnContainer = styled.div`
   display: flex;
   flex-flow: row wrap;
   justify-content: space-evenly;
-  align-items: center;
-  height: 100%;
 `;
 
 const attack = (dmg) => {
@@ -39,7 +38,9 @@ const attack = (dmg) => {
 export default function Inventory(props) {
   return (
     <Section>
+      <BtnContainer>
         <AttackButton onClick={() => attack(3333)}>Attack</AttackButton>
+      </BtnContainer>
       <BtnContainer>
         <InventoryButton>Inventory</InventoryButton>
         <ShopButton>Shop</ShopButton>
