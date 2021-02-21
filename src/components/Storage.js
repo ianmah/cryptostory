@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import Item from './Item'
 import Character from './Character'
@@ -19,33 +19,63 @@ const Preview = styled.div`
 `;
 
 
-const Storage = ({inventory}) => {
+const baseBody = {
+    2000: true,
+    12000: true,
+    1060026: true,
+    1040036: true,
+}
 
-    const [items, setItems] = useState({
-        2000: true,
-        12000: true
-    })
+const Storage = ({character, inventory}) => {
+
+    const [items, setItems] = useState(baseBody)
+    const [attack, setAttack] = useState(0)
+    
+    useEffect(() => {
+        if (character.hair) {
+            setItems({
+                ...baseBody,
+                [character.hair]: true,
+                [character.face]: true,
+            })
+        }
+        setAttack(0)
+    }, [character.hair, character.face])
+
 
     const equip = (item) => {
         const newItems = {...items}
-        newItems[item] = !newItems[item]
+        newItems[item.id] = !newItems[item.id]
         setItems(newItems)
+
+        if (newItems[item.id]) {
+            setAttack(attack + item.attack)
+            window.attack = attack + item.attack
+        }
+        else {
+            setAttack(attack - item.attack)
+            window.attack = attack - item.attack
+        }
+        
     }
 
     
     return (
-      <Container>
-        Inventory
-        <br />
+        <Container>
+            Inventory
+            <br/>
         <Preview>
           <Character items={items} action="stand1" />
-        </Preview>
-        <br />
-        {inventory.items.map((item) => (
-          <Item key={item} onClick={() => equip(item)} id={item} />
-        ))}
-      </Container>
-    );
+        </Preview>            <br />
+            Total Attack: {attack}
+            <br />
+            
+            {inventory.items.map((item) => (
+                <Item key={item.id} onClick={() => equip(item)} id={item.id} />
+            ))}
+            
+        </Container>
+    )
     
 }
 

@@ -33,7 +33,7 @@ const BtnContainer = styled.div`
   justify-content: space-evenly;
 `;
 
-const attack = (dmg) => {
+const attack = (dmg = 0) => {
   window.ws.send(JSON.stringify({ attack: true, dmg }))
 }
 
@@ -41,7 +41,7 @@ export default function Inventory(props) {
   return (
     <Section>
       <BtnContainer>
-        <AttackButton onClick={() => attack(3333)}>Attack</AttackButton>
+        <AttackButton onClick={() => attack(window.attack)}>Attack</AttackButton>
       </BtnContainer>
       <BtnContainer>
         <InventoryButton>Inventory</InventoryButton>

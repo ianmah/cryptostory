@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 
 const MintWrapper = styled.div`
-  display: inline-block;
+  display: flex;
   float: right;
 `;
 
@@ -10,19 +10,24 @@ const StyledButton = styled.button`
   width: 90px;
   font-family: 'Cool-font';
 `;
+
 const StyledInput = styled.input`
+  width: 150px;
   font-family: 'Cool-font';
 `;
 
-const Minter = ({ account, contract, allItems, setAllItems }) => {
+const Minter = ({ account, charaContract, itemContract, allItems, setAllItems }) => {
   const [item, setItem] = useState('');
 
   const handleChange = (event) => {
+    event.preventDefault()
     setItem(event.target.value);
   };
 
-  const mint = (item) => {
-    contract.methods
+  const mintItem = (e, item) => {
+    e.preventDefault()
+    item && 
+    itemContract.methods
       .mint(item)
       .send({ from: account })
       .once('receipt', (receipt) => {
@@ -30,11 +35,21 @@ const Minter = ({ account, contract, allItems, setAllItems }) => {
       });
   };
 
+  const mint = (e) => {
+    
+    e.preventDefault()
+    charaContract.methods
+      .mint()
+      .send({ from: account })
+      .once('receipt', (receipt) => {
+      });
+  }
+
   return (
     <MintWrapper>
       <form
-        onSubmit={() => {
-          mint(item);
+        onSubmit={(e) => {
+          mintItem(e, item);
         }}
       >
         <StyledInput
@@ -42,8 +57,9 @@ const Minter = ({ account, contract, allItems, setAllItems }) => {
           onChange={(e) => handleChange(e)}
           type="text"
         />
-        <StyledButton>Mint</StyledButton>
+        <StyledButton>Mint Item</StyledButton>
       </form>
+      <StyledButton onClick={e => mint(e)}>Mint Character</StyledButton>
     </MintWrapper>
   );
 };

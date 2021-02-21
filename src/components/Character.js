@@ -10,9 +10,8 @@ const StyleImage = styled.img`
   bottom: 50px;
   position: absolute;
 `;
-
-const Character = ({ items, action }) => {
-  const [characterImg, setCharacterImg] = useState();
+const Character = ({items, action, ...props}) => {
+    const [characterImg, setCharacterImg] = useState();
 
   useEffect(() => {
     const get = async () => {
@@ -21,8 +20,10 @@ const Character = ({ items, action }) => {
     };
     get();
   }, [items, action]);
+    return (
+        <StyleImage src={characterImg} alt="Character" {...props} />
+    )
+}
 
-  return <StyleImage src={characterImg} alt="Character" />;
-};
 
 export default Character;
