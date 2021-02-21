@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import ProgressBar from './ProgressBar'
+import Character from './Character'
 
 // https://maplestory.io/api/GMS/220/mob/2600225/render/stand/animated?resize=2
 
@@ -37,6 +38,7 @@ const Monster = ({id}) => {
 const MonsterWrapper = () => {
 
     const [monster, setMonster] = useState({});
+    const [users, setUsers] = useState([]);
 
     window.ws.onmessage = (message) => {
         if (message.data !== 'Successful connection!') {
@@ -45,7 +47,7 @@ const MonsterWrapper = () => {
               setMonster(data)
           }
           if (data.updateUserList) {
-              console.log(data.users)
+            setUsers(Object.values(data.users))
           }
         }
     }
@@ -54,6 +56,13 @@ const MonsterWrapper = () => {
       <Container>
           <ProgressBar percentage={(monster.hp / 10000) * 100} />
           <Monster id={monster.id} />
+          {
+            users.map((user, i) => {
+              console.log(user)
+              return <Character key={i} items={user} action="stand1" />
+              
+            })
+          }
       </Container>
     );
 }

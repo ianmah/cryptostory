@@ -30,6 +30,7 @@ const Signin = ({ id }) => {
   };
 
   const onNext = () => {
+    console.log(done)
     username && setDone(true);
     signup(username);
   };
