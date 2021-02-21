@@ -29,7 +29,7 @@ const Storage = ({inventory}) => {
             
             <Character items={items} action="stand1" />
             {inventory.items.map((item) => (
-                <Item onClick={() => equip(item)} id={item} />
+                <Item key={item} onClick={() => equip(item)} id={item} />
             ))}
         </Container>
     )
