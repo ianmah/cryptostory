@@ -15,7 +15,7 @@ const Container = styled.div`
   max-width: 600px;
   margin: auto;
   background: #fff;
-  height: 100vh;
+  height: 100%;
 `;
 
 function App() {
@@ -24,7 +24,7 @@ function App() {
   }
 
   const [inventory, setInventory] = useState({
-    items: ['1001021', '1082059'],
+    items: [],
   });
 
   const [account, setAccount] = useState('');
@@ -68,12 +68,16 @@ function App() {
         const item = await contract.methods.items(i - 1).call();
         allItems.push(item);
         setAllItems(allItems);
-        const owner = await contract.methods.ownerOf(i).call();
+        const owner = await contract.methods.ownerOf(i - 1).call();
         if (owner === accounts[0]) {
-          result.push(await contract.methods.items(i - 1).call())
+          const item = await contract.methods.items(i - 1).call()
+          result.push({
+            id: item[0],
+            attack: item[2].toNumber()
+          })
         }
       }
-      console.log(result);
+      
       setInventory({
         ...inventory,
         items: result
