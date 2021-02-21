@@ -6,7 +6,13 @@ const Container = styled.div`
     margin: 1em 0;
 `
 
-const Characters = ({characters, setCharacter}) => {
+const Characters = ({characters, setCharacter, attack, setAttack}) => {
+
+    const handleClick = (character) => {
+        const characterAttack = character.attack.toNumber()
+        setCharacter(character)
+        setAttack(characterAttack)
+    }
     
     return (
         <Container>
@@ -23,7 +29,7 @@ const Characters = ({characters, setCharacter}) => {
                         [character.hair]: true,
                         [character.face]: true,
                     }
-                    return <Character items={characterItems} onClick={() => setCharacter(character)} action="stand1" />
+                    return <Character items={characterItems} onClick={() => handleClick(character)} action="stand1" />
                 })
             }
             
