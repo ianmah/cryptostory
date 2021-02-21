@@ -27,7 +27,7 @@ const CharacterContainer = styled.div`
     }
 `
 
-const Characters = ({characters, selected, setSelected, setCharacter, setAttack = () => {}}) => {
+const Characters = ({characters, selected, setSelected = () => {}, setCharacter, setAttack = () => {}}) => {
     const handleClick = (character) => {
         const characterAttack = character.attack.toNumber()
         const characterItems = {
@@ -37,6 +37,7 @@ const Characters = ({characters, selected, setSelected, setCharacter, setAttack 
             1040036: true,
             [character.hair]: true,
             [character.face]: true,
+            id: character.id,
         }
         setCharacter(characterItems)
         setSelected(character);
@@ -55,6 +56,7 @@ const Characters = ({characters, selected, setSelected, setCharacter, setAttack 
                         1040036: true,
                         [character.hair]: true,
                         [character.face]: true,
+                        id: character.id,
                     }
                     return <CharacterContainer key={key} className={character === selected ? "selected" : "not-selected"} onClick={() => handleClick(character)} >
                         <Character items={characterItems} action="stand1" />

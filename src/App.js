@@ -31,6 +31,7 @@ const characterToItems = (character) => {
       1040036: true,
       [character.hair]: true,
       [character.face]: true,
+      id: character.id
   }
   
   return characterItems
@@ -149,8 +150,9 @@ function App() {
   };
 
   const handleBreed = async (c) => {
-      const spouse = c.id.toNumber()
-      const self = character.id.toNumber()
+      const spouse = c.id
+      const self = character.id
+      console.log('chosen to breed with', self, spouse)
       if (spouse === self) {
         console.log('cannot mate with self')
       } else {
