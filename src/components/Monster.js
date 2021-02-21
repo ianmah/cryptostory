@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import ProgressBar from './ProgressBar'
+import Character from './Character'
 
 // https://maplestory.io/api/GMS/220/mob/2600225/render/stand/animated?resize=2
 
@@ -16,6 +17,20 @@ const StyledImg = styled.img`
   bottom: 35px;
   image-rendering: pixelated;
 `;
+
+const Characters = styled.div`
+  position: absolute;
+  bottom: 40px;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
+`
+
+const StyledCharacter = styled(Character)`
+  max-height: 100px;
+  margin: 0 0px;
+`
 
 const Container = styled.div`
   position: relative;
@@ -37,6 +52,8 @@ const Monster = ({id}) => {
 const MonsterWrapper = () => {
 
     const [monster, setMonster] = useState({});
+    const [users, setUsers] = useState([]);
+    const len = Object.keys(users).length
 
     window.ws.onmessage = (message) => {
         if (message.data !== 'Successful connection!') {
@@ -45,7 +62,7 @@ const MonsterWrapper = () => {
               setMonster(data)
           }
           if (data.updateUserList) {
-              console.log(data.users)
+            setUsers(Object.values(data.users))
           }
         }
     }
@@ -54,6 +71,14 @@ const MonsterWrapper = () => {
       <Container>
           <ProgressBar percentage={(monster.hp / 10000) * 100} />
           <Monster id={monster.id} />
+          <Characters>
+          {
+            users.map((user, i) => {
+              const flipped = i < len / 2
+              return <StyledCharacter key={i} items={user} action="stabO2" flipped={flipped} />
+            })
+          }
+          </Characters>
       </Container>
     );
 }

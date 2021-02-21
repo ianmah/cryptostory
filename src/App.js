@@ -38,7 +38,9 @@ const characterToItems = (character) => {
 
 function App() {
   if (!window.ws) {
-    initWebsocket();
+    initWebsocket(() => {
+      setCharacter(character)
+    });
   }
 
   const [characters, setCharacters] = useState([])
