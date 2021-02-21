@@ -60,12 +60,25 @@ function App() {
       const contract = new web3.eth.Contract(abi, address);
       setContract(contract);
       const totalSupply = await contract.methods.totalSupply().call();
-      //load items
-      for (var i = 1; i <= totalSupply; i++) {
+
+      const result = [];
+
+      //load items 
+      for(var i = 1; i <= totalSupply; i++){
         const item = await contract.methods.items(i - 1).call();
         allItems.push(item);
         setAllItems(allItems);
+        const owner = await contract.methods.ownerOf(i).call();
+        if (owner === accounts[0]) {
+          result.push(await contract.methods.items(i - 1).call())
+        }
       }
+      console.log(result);
+      setInventory({
+        ...inventory,
+        items: result
+      })
+
     } else {
       window.alert(`smart contract not on network`);
     }
