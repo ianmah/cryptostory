@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import ProgressBar from './ProgressBar'
 import Character from './Character'
@@ -41,10 +41,10 @@ const Container = styled.div`
   background-position: bottom;
 `;
 
-const Monster = ({id}) => {
+const Monster = ({id, hit}) => {
     
     return (
-        <StyledImg src={`https://maplestory.io/api/gms/220/mob/${id}/render/stand`} alt={`monster ${id}` } />
+        <StyledImg src={`https://maplestory.io/api/gms/220/mob/${id}/render/${hit}`} alt={`monster ${id}` } />
     )
     
 }
@@ -52,6 +52,7 @@ const Monster = ({id}) => {
 const MonsterWrapper = () => {
 
     const [monster, setMonster] = useState({});
+    const [hit, setHit] = useState('stand');
     const [users, setUsers] = useState([]);
     const len = Object.keys(users).length
 
@@ -67,10 +68,17 @@ const MonsterWrapper = () => {
         }
     }
 
+    useEffect(() => {
+      setHit('hit1')
+        setTimeout(() => {
+          setHit('stand')
+        }, 200)
+    }, [monster.hp])
+
     return (
       <Container>
           <ProgressBar percentage={(monster.hp / 10000) * 100} />
-          <Monster id={monster.id} />
+          <Monster id={monster.id} hit={hit} />
           <Characters>
           {
             users.map((user, i) => {
