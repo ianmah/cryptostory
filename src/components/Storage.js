@@ -7,6 +7,13 @@ const Container = styled.div`
     margin: 1em 0;
 `
 
+const DisplayTitle = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 35px;
+`;
+
 
 const Storage = ({inventory}) => {
 
@@ -23,16 +30,16 @@ const Storage = ({inventory}) => {
 
     
     return (
-        <Container>
-            Inventory
-            <br/>
-            
-            <Character items={items} action="stand1" />
-            {inventory.items.map((item) => (
-                <Item key={item} onClick={() => equip(item)} id={item} />
-            ))}
-        </Container>
-    )
+      <Container>
+        <DisplayTitle>Inventory </DisplayTitle>
+        <br />
+        <Character items={items} action="stand1" />
+        <br />
+        {inventory.items.map((item) => (
+          <Item key={item} onClick={() => equip(item)} id={item} />
+        ))}
+      </Container>
+    );
     
 }
 
