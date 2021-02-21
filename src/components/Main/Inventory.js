@@ -3,9 +3,11 @@ import styled from 'styled-components'
 import Button from './Button'
 
 const AttackButton = styled(Button)`
-  background-color: green;
-`
-
+  width: 15em;
+  height: 15em;
+  margin-right: 2em;
+  flex-basis: initial;
+`;
 const InventoryButton = styled(Button)`
   background-color: blue;
 `
@@ -16,13 +18,17 @@ const ShopButton = styled(Button)`
 const Section = styled.section`
   display:flex;
   justify-content: space-evenly;
+  align-items: center;
   border: black solid 1px;
-  bottom: 0;
+  height: 15em;
 `
 
-const Grid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(2, auto);
+const BtnContainer = styled.div`
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-evenly;
+  align-items: center;
+  height: 100%;
 `;
 
 const attack = (dmg) => {
@@ -32,13 +38,13 @@ const attack = (dmg) => {
 export default function Inventory(props) {
   return (
     <Section>
-      <AttackButton onClick={() => attack(3333)}>Attack</AttackButton>
-      <Grid>
+        <AttackButton onClick={() => attack(3333)}>Attack</AttackButton>
+      <BtnContainer>
         <InventoryButton>Inventory</InventoryButton>
         <ShopButton>Shop</ShopButton>
         <Button>Breed</Button>
         <Button>Party</Button>
-      </Grid>
+      </BtnContainer>
     </Section>
   );
 }
