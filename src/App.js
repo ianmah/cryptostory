@@ -10,6 +10,7 @@ import Characters from './components/Characters';
 import Storage from './components/Storage';
 import Web3 from 'web3';
 import Minter from './components/Minter';
+import Market from './components/Market';
 
 const ControlsWrapper = styled.div`
   display: inline-block;
@@ -39,6 +40,8 @@ function App() {
   const [charaContract, setCharaContract] = useState('');
   const [allItems, setAllItems] = useState([]);
 
+  const [openMarket, setOpenMarket] = useState(false);
+  const [market, setMarket] = useState([]);
   const [attack, setAttack] = useState(0);
 
   useEffect(() => {
@@ -99,20 +102,35 @@ function App() {
       setCharaContract(charaContract);
       const totalSupply = await charaContract.methods.totalSupply().call();
       const result = [];
+      const marketplace = [];
       for (let i = 1; i <= totalSupply; i++) {
         const character = await charaContract.methods.characters(i - 1).call();
         const owner = await charaContract.methods.ownerOf(i - 1).call();
         if (owner === accounts[0]) {
           result.push(character)
         }
+        marketplace.push(character)
       }
       console.log(result[0])
       setCharacters(result)
       setCharacter(result[0])
+      setMarket(marketplace)
     } else {
       window.alert(`smart contract not on network`);
     }
   };
+
+  const handleBreed = async (c) => {
+      const spouse = c.id.toNumber()
+      const self = character.id.toNumber()
+      if (spouse === self) {
+        console.log('cannot mate with self')
+      } else {
+        console.log('chosen to breed with', self, spouse)
+        console.log(charaContract)
+        await charaContract.methods.createHero(self, spouse).send({ from: account })
+      }
+  }
 
   return (
     <>
@@ -128,10 +146,13 @@ function App() {
         />
       </ControlsWrapper>
       <Monster />
-      <Inventory />
+      <Inventory openMarket={() => setOpenMarket(!openMarket)}/>
+      <Market breed={handleBreed} characters={market} visible={openMarket}/>
       <Storage attack={attack} setAttack={setAttack} character={character} inventory={inventory} />
+      Characters
+      <br/>
       <Characters attack={attack} setAttack={setAttack} characters={characters} setCharacter={setCharacter} />
-    {account}
+      {account}
     </Container>
     </>
   );
