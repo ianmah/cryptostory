@@ -10,6 +10,9 @@ const StyledButton = styled.button`
   width: 90px;
   font-family: 'Cool-font';
   height: 32px;
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 const StyledInput = styled.input`

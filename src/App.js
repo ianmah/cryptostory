@@ -175,7 +175,7 @@ function App() {
       <Storage attack={attack} setAttack={setAttack} setCharacter={setCharacter} character={character} inventory={inventory} />
       Characters
       <br/>
-      <Characters attack={attack} setAttack={setAttack} characters={characters} selected={character} setCharacter={setCharacter} />
+      <Characters attack={attack} setAttack={setAttack} characters={characters} character={character} setCharacter={setCharacter} />
       {account}
     </Container>
     </>

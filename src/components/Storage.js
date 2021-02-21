@@ -38,6 +38,7 @@ const InventoryGrid = styled.div`
 
   &:hover {
     box-shadow: inset 7px 15px 20px -7px rgba(0, 0, 0, 0.6);
+    cursor: pointer;
   }
   &.equipped {
     box-shadow: inset 7px 15px 20px -7px rgba(0, 0, 0, 0.6);

@@ -22,6 +22,10 @@ const StyledButton = styled.button`
   &:focus {
     outline: none;
   }
+
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 export default function Button (props){
