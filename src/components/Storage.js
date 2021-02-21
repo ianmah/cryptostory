@@ -52,7 +52,7 @@ const Storage = ({inventory}) => {
             <br />
             
             {inventory.items.map((item) => (
-                <Item key={item.id} onClick={() => equip(item)} id={item.id} />
+                <Item key={item.id} onClick={() => equip(item)} id={item.id} className={items[item.id] ? 'equipped' : 'not-equipped'}/>
             ))}
             
         </Container>
