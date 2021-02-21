@@ -19,11 +19,13 @@ const ShopButton = styled(Button)`
   background-color: brown;
 `
 const Section = styled.section`
-  display:flex;
+  display: flex;
   justify-content: space-evenly;
   align-items: center;
   height: 15em;
-`
+  background-color: #444444;
+  border: #505050 solid 3px;
+`;
 
 const BtnContainer = styled.div`
   display: flex;
