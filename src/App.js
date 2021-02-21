@@ -6,6 +6,7 @@ import Monster from './components/Monster';
 import Signin from './components/Signin';
 import initWebsocket from './util/websocket';
 import Inventory from './components/Main/Inventory';
+import Characters from './components/Characters';
 import Storage from './components/Storage';
 import Web3 from 'web3';
 import Minter from './components/Minter';
@@ -96,15 +97,14 @@ function App() {
       setCharaContract(charaContract);
       const totalSupply = await charaContract.methods.totalSupply().call();
       const result = [];
-
       for (let i = 1; i <= totalSupply; i++) {
         const character = await charaContract.methods.characters(i - 1).call();
         const owner = await charaContract.methods.ownerOf(i - 1).call();
         if (owner === accounts[0]) {
-          console.log(character)
           setCharacter(character)
-          result.push(character);
+          result.push(character)
         }
+        setCharacters(result)
       }
     } else {
       window.alert(`smart contract not on network`);
@@ -126,6 +126,7 @@ function App() {
       <Monster />
       <Inventory />
       <Storage character={character} inventory={inventory} />
+      <Characters characters={characters} />
     </Container>
   );
 }

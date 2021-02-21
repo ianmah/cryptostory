@@ -20,10 +20,13 @@ const Minter = ({ account, charaContract, itemContract, allItems, setAllItems })
   const [item, setItem] = useState('');
 
   const handleChange = (event) => {
+    event.preventDefault()
     setItem(event.target.value);
   };
 
-  const mintItem = (item) => {
+  const mintItem = (e, item) => {
+    e.preventDefault()
+    item && 
     itemContract.methods
       .mint(item)
       .send({ from: account })
@@ -32,7 +35,9 @@ const Minter = ({ account, charaContract, itemContract, allItems, setAllItems })
       });
   };
 
-  const mint = () => {
+  const mint = (e) => {
+    
+    e.preventDefault()
     charaContract.methods
       .mint()
       .send({ from: account })
@@ -43,8 +48,8 @@ const Minter = ({ account, charaContract, itemContract, allItems, setAllItems })
   return (
     <MintWrapper>
       <form
-        onSubmit={() => {
-          mintItem(item);
+        onSubmit={(e) => {
+          mintItem(e, item);
         }}
       >
         <StyledInput
@@ -54,7 +59,7 @@ const Minter = ({ account, charaContract, itemContract, allItems, setAllItems })
         />
         <StyledButton>Mint Item</StyledButton>
       </form>
-      <StyledButton onClick={mint}>Mint Character</StyledButton>
+      <StyledButton onClick={e => mint(e)}>Mint Character</StyledButton>
     </MintWrapper>
   );
 };
