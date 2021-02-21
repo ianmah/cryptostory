@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import Character from "./components/Character";
-import Item from "./components/Item";
 import Monster from "./components/Monster";
 import Signin from './components/Signin'
 import initWebsocket from './util/websocket'
 import Inventory from './components/Main/Inventory';
+import Storage from './components/Storage';
 
 const Container = styled.div`
   max-width: 600px;
@@ -13,17 +12,6 @@ const Container = styled.div`
   background: #fff;
   height: 100vh;
 `;
-const items = [
-  {
-    itemId: 2000,
-    version: "220",
-  },
-  {
-    itemId: 12000,
-    version: "220",
-  },
-];
-
 function App() {
   if (!window.ws) {
     initWebsocket()
@@ -36,12 +24,9 @@ function App() {
   return (
     <Container>
       <Signin />
-      <Character character={{ items }} action="stand1" />
-      {inventory.items.map((item) => (
-        <Item id={item} />
-      ))}
       <Monster />
       <Inventory />
+      <Storage inventory={inventory}/>
     </Container>
   );
 }
