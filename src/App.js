@@ -23,16 +23,22 @@ const Container = styled.div`
   height: 100%;
 `;
 
+const characterToItems = (character) => {
+  const characterItems = {
+      2000: true,
+      12000: true,
+      1060026: true,
+      1040036: true,
+      [character.hair]: true,
+      [character.face]: true,
+  }
+  
+  return characterItems
+}
+
 function App() {
   if (!window.ws) {
     initWebsocket();
-  }
-
-  const setCharacter = (character) => {
-    console.log(character)
-    const ws = window.ws
-    ws.readyState === 1 && ws.send(JSON.stringify({ newUser: true, color: character }))
-    setCharacterState(character)
   }
 
   const [characters, setCharacters] = useState([])
@@ -46,6 +52,12 @@ function App() {
   const [itemContract, setItemContract] = useState('');
   const [charaContract, setCharaContract] = useState('');
   const [allItems, setAllItems] = useState([]);
+
+  const setCharacter = (character) => {
+    const ws = window.ws
+    account && ws.readyState === 1 && ws.send(JSON.stringify({ newUser: true, username: account, color: character }))
+    setCharacterState(character)
+  }
 
   const [openMarket, setOpenMarket] = useState(false);
   const [market, setMarket] = useState([]);
@@ -122,9 +134,10 @@ function App() {
         }
         marketplace.push(character)
       }
-      console.log(result[0])
+      
+      setAttack(result[0]?.attack.toNumber())
       setCharacters(result)
-      setCharacter(result[0])
+      setCharacter(characterToItems(result[0] || {}))
       setMarket(marketplace)
     } else {
       window.alert(`smart contract not on network`);
@@ -159,7 +172,7 @@ function App() {
       <Monster />
       <Inventory openMarket={() => setOpenMarket(!openMarket)}/>
       <Market breed={handleBreed} characters={market} visible={openMarket}/>
-      <Storage attack={attack} setAttack={setAttack} character={character} inventory={inventory} />
+      <Storage attack={attack} setAttack={setAttack} setCharacter={setCharacter} character={character} inventory={inventory} />
       Characters
       <br/>
       <Characters attack={attack} setAttack={setAttack} characters={characters} selected={character} setCharacter={setCharacter} />

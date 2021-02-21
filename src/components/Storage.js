@@ -45,31 +45,12 @@ const InventoryGrid = styled.div`
   }
 `;
 
-const baseBody = {
-  2000: true,
-  12000: true,
-  1060026: true,
-  1040036: true,
-};
-
-const Storage = ({ character = {}, inventory, attack, setAttack }) => {
-  const [items, setItems] = useState(baseBody);
-//   const [attack, setAttack] = useState(0);
-
-  useEffect(() => {
-    if (character.hair) {
-      setItems({
-        ...baseBody,
-        [character.hair]: true,
-        [character.face]: true,
-      });
-    }
-  }, [character.hair, character.face]);
+const Storage = ({ character = {}, setCharacter, inventory, attack, setAttack }) => {
 
   const equip = (item) => {
-    const newItems = { ...items };
+    const newItems = { ...character };
     newItems[item.id] = !newItems[item.id];
-    setItems(newItems);
+    setCharacter(newItems);
 
     if (newItems[item.id]) {
       setAttack(attack + item.attack);
@@ -83,7 +64,7 @@ const Storage = ({ character = {}, inventory, attack, setAttack }) => {
       Inventory
       <br />
       <Preview>
-        <AbsoluteCharacter items={items} action="stand1" />
+        <AbsoluteCharacter items={character} action="stand1" />
       </Preview>{' '}
       <br />
       Total Attack: {attack}
@@ -92,7 +73,7 @@ const Storage = ({ character = {}, inventory, attack, setAttack }) => {
         {inventory.items.map((item) => (
           <InventoryGrid
             key={item.id}
-            className={items[item.id] ? 'equipped' : 'not-equipped'}
+            className={character[item.id] ? 'equipped' : 'not-equipped'}
           >
             <Item key={item.id} onClick={() => equip(item)} id={item.id} />
           </InventoryGrid>
