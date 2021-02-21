@@ -112,6 +112,7 @@ function App() {
   };
 
   return (
+    <>
     <Container>
       <ControlsWrapper>
         <Signin />
@@ -127,7 +128,9 @@ function App() {
       <Inventory />
       <Storage character={character} inventory={inventory} />
       <Characters characters={characters} setCharacter={setCharacter} />
+    {account}
     </Container>
+    </>
   );
 }
 
