@@ -39,6 +39,8 @@ function App() {
   const [charaContract, setCharaContract] = useState('');
   const [allItems, setAllItems] = useState([]);
 
+  const [attack, setAttack] = useState(0);
+
   useEffect(() => {
     loadWeb3();
     loadBlockchainData();
@@ -79,7 +81,6 @@ function App() {
         setAllItems(allItems);
         const owner = await itemContract.methods.ownerOf(i - 1).call();
         if (owner === accounts[0]) {
-          console.log(item)
           result.push({
             id: item[0],
             attack: item[2].toNumber()
@@ -105,6 +106,7 @@ function App() {
           result.push(character)
         }
       }
+      console.log(result[0])
       setCharacters(result)
       setCharacter(result[0])
     } else {
@@ -127,8 +129,8 @@ function App() {
       </ControlsWrapper>
       <Monster />
       <Inventory />
-      <Storage character={character} inventory={inventory} />
-      <Characters characters={characters} setCharacter={setCharacter} />
+      <Storage attack={attack} setAttack={setAttack} character={character} inventory={inventory} />
+      <Characters attack={attack} setAttack={setAttack} characters={characters} setCharacter={setCharacter} />
     {account}
     </Container>
     </>

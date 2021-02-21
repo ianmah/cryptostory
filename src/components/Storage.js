@@ -38,9 +38,9 @@ const baseBody = {
   1040036: true,
 };
 
-const Storage = ({ character = {}, inventory }) => {
+const Storage = ({ character = {}, inventory, attack, setAttack }) => {
   const [items, setItems] = useState(baseBody);
-  const [attack, setAttack] = useState(0);
+//   const [attack, setAttack] = useState(0);
 
   useEffect(() => {
     if (character.hair) {
@@ -50,7 +50,6 @@ const Storage = ({ character = {}, inventory }) => {
         [character.face]: true,
       });
     }
-    setAttack(0);
   }, [character.hair, character.face]);
 
   const equip = (item) => {
