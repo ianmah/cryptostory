@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import Character from "./components/Character";
 import Item from "./components/Item";
-import ProgressBar from "./components/ProgressBar";
-import styled from 'styled-components'
-import Character from './components/Character'
+import Monster from "./components/Monster";
+import Signin from './components/Signin'
+import initWebsocket from './util/websocket'
 import Inventory from './components/Main/Inventory';
 
 const Container = styled.div`
@@ -25,17 +25,22 @@ const items = [
 ];
 
 function App() {
+  if (!window.ws) {
+    initWebsocket()
+  }
+
   const [inventory, setInventory] = useState({
     items: ["1001021", "1082059"],
   });
 
   return (
     <Container>
+      <Signin />
       <Character character={{ items }} action="stand1" />
       {inventory.items.map((item) => (
         <Item id={item} />
       ))}
-      <ProgressBar percentage={66} />
+      <Monster />
       <Inventory />
     </Container>
   );
