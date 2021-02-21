@@ -9,11 +9,13 @@ const MintWrapper = styled.div`
 const StyledButton = styled.button`
   width: 90px;
   font-family: 'Cool-font';
+  height: 32px;
 `;
 
 const StyledInput = styled.input`
   width: 150px;
   font-family: 'Cool-font';
+  height: 26px;
 `;
 
 const Minter = ({ account, charaContract, itemContract, allItems, setAllItems }) => {

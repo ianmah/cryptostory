@@ -35,7 +35,7 @@ const Filter = (props) => {
 const ProgressBar = (props) => {
   return (
     <StyledProgressBar>
-      <Percent>{props.percentage.toFixed(2)}%</Percent>
+      <Percent>{`HP ${props.percentage.toFixed(2)}`}%</Percent>
       <Filter percentage={props.percentage} />
     </StyledProgressBar>
   );

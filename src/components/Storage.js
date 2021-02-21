@@ -93,6 +93,7 @@ const Storage = ({ character = {}, inventory, attack, setAttack }) => {
       <InventoryWrapper>
         {inventory.items.map((item) => (
           <InventoryGrid
+            key={item.id}
             className={items[item.id] ? 'equipped' : 'not-equipped'}
           >
             <Item key={item.id} onClick={() => equip(item)} id={item.id} />

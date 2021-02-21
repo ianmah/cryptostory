@@ -3,23 +3,31 @@ import styled from 'styled-components'
 import Character from './Character'
 
 const Container = styled.div`
-    margin: 1em 0;
+    margin: 1em;
 `
 
 const CharacterContainer = styled.div`
     display: inline-block;
     text-align: center;
     padding: 20px;
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.25);
+    img {
+      float: left;
+      height: 150px;
+      width: 100px;
+      object-fit: cover;
+    }
     
     &:hover {
-        outline: 2px solid green;
+      box-shadow: inset 7px 15px 20px -7px rgba(0, 0, 0, 0.6);
     }
-    &.equipped {
-        box-shadow: inset 0 0 10px green;
+    &.selected {
+      box-shadow: inset 7px 15px 20px -7px rgba(0, 0, 0, 0.6);
+      border: rgba(0, 0, 0, 0.6) solid 1.6px;
     }
 `
 
-const Characters = ({characters, setCharacter, attack, setAttack = () => {}}) => {
+const Characters = ({characters, selected, setCharacter, attack, setAttack = () => {}}) => {
 
     const handleClick = (character) => {
         const characterAttack = character.attack.toNumber()
@@ -31,7 +39,7 @@ const Characters = ({characters, setCharacter, attack, setAttack = () => {}}) =>
         <Container>
             
             {
-                characters.map((character) => {
+                characters.map((character, key) => {
                     const characterItems = {
                         2000: true,
                         12000: true,
@@ -40,7 +48,7 @@ const Characters = ({characters, setCharacter, attack, setAttack = () => {}}) =>
                         [character.hair]: true,
                         [character.face]: true,
                     }
-                    return <CharacterContainer onClick={() => handleClick(character)} >
+                    return <CharacterContainer key={key} className={character === selected ? "selected" : "not-selected"} onClick={() => handleClick(character)} >
                         <Character items={characterItems} action="stand1" />
                         <br />
                         Attack: {character.attack.toNumber()}
