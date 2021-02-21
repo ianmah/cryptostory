@@ -6,6 +6,7 @@ import Monster from './components/Monster';
 import Signin from './components/Signin';
 import initWebsocket from './util/websocket';
 import Inventory from './components/Main/Inventory';
+import Characters from './components/Characters';
 import Storage from './components/Storage';
 import Web3 from 'web3';
 import Minter from './components/Minter';
@@ -26,6 +27,9 @@ function App() {
     initWebsocket();
   }
 
+  const [characters, setCharacters] = useState([])
+  const [character, setCharacter] = useState({})
+
   const [inventory, setInventory] = useState({
     items: [],
   });
@@ -34,7 +38,6 @@ function App() {
   const [itemContract, setItemContract] = useState('');
   const [charaContract, setCharaContract] = useState('');
   const [allItems, setAllItems] = useState([]);
-  const [characters, setCharacters] = useState([]);
 
   useEffect(() => {
     loadWeb3();
@@ -55,6 +58,8 @@ function App() {
   const loadBlockchainData = async () => {
     const web3 = window.web3;
     const accounts = await web3.eth.getAccounts();
+    window.account = accounts[0]
+
     setAccount(accounts[0]);
 
     const networkId = await web3.eth.net.getId();
@@ -92,23 +97,22 @@ function App() {
       setCharaContract(charaContract);
       const totalSupply = await charaContract.methods.totalSupply().call();
       const result = [];
-
       for (let i = 1; i <= totalSupply; i++) {
         const character = await charaContract.methods.characters(i - 1).call();
-        characters.push(character);
-        setCharacters(character);
         const owner = await charaContract.methods.ownerOf(i - 1).call();
         if (owner === accounts[0]) {
-          console.log(character);
-          result.push(character);
+          result.push(character)
         }
       }
+      setCharacters(result)
+      setCharacter(result[0])
     } else {
       window.alert(`smart contract not on network`);
     }
   };
 
   return (
+    <>
     <Container>
       <ControlsWrapper>
         <Signin />
@@ -122,8 +126,11 @@ function App() {
       </ControlsWrapper>
       <Monster />
       <Inventory />
-      <Storage inventory={inventory} />
+      <Storage character={character} inventory={inventory} />
+      <Characters characters={characters} setCharacter={setCharacter} />
+    {account}
     </Container>
+    </>
   );
 }
 
