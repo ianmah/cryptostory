@@ -55,16 +55,10 @@ function App() {
     if (networkData) {
       const abi = CryptoItem.abi;
       const address = networkData.address;
-      console.log(address)
+      // console.log(address)
       const contract = new web3.eth.Contract(abi, address);
       setContract(contract);
-      // const test = await contract.methods.totalSupply()
-      // console.log(test);
-      contract.methods.mint('121233').send({ from: accounts[0], gas: 4712388, gasPrice: 100000000000 })
-        .once('receipt', (receipt) => {
-          console.log(receipt)
-        });
-
+      
       const totalSupply = await contract.methods.totalSupply().call();
       console.log(totalSupply);
 
@@ -72,10 +66,17 @@ function App() {
 
       //load items 
       for(var i = 1; i <= totalSupply; i++){
-        const item = await contract.methods.items(i - 1).call();
-        result.push(item);
+        const owner = await contract.methods.ownerOf(i).call();
+        if (owner === accounts[0]) {
+          result.push(await contract.methods.items(i - 1).call())
+        }
       }
       console.log(result);
+      setInventory({
+        ...inventory,
+        items: result
+      })
+
     } else {
       window.alert(`smart contract not on network`);
     }
