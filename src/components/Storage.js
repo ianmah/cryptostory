@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import Item from './Item'
 import Character from './Character'
@@ -15,12 +15,22 @@ const DisplayTitle = styled.div`
 `;
 
 
-const Storage = ({inventory}) => {
+const Storage = ({character, inventory}) => {
 
     const [items, setItems] = useState({
         2000: true,
         12000: true
     })
+    
+    useEffect(() => {
+        if (character.hair) {
+            setItems({
+                ...items,
+                [character.hair]: true,
+                [character.face]: true,
+            })
+        }
+    }, [character])
 
     const [attack, setAttack] = useState(0)
 
@@ -45,7 +55,6 @@ const Storage = ({inventory}) => {
         <Container>
             Inventory
             <br/>
-            
             <Character items={items} action="stand1" />
             <br />
             Total Attack: {attack}

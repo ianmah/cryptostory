@@ -26,6 +26,9 @@ function App() {
     initWebsocket();
   }
 
+  const [characters, setCharacters] = useState([])
+  const [character, setCharacter] = useState({})
+
   const [inventory, setInventory] = useState({
     items: [],
   });
@@ -34,7 +37,6 @@ function App() {
   const [itemContract, setItemContract] = useState('');
   const [charaContract, setCharaContract] = useState('');
   const [allItems, setAllItems] = useState([]);
-  const [characters, setCharacters] = useState([]);
 
   useEffect(() => {
     loadWeb3();
@@ -55,6 +57,8 @@ function App() {
   const loadBlockchainData = async () => {
     const web3 = window.web3;
     const accounts = await web3.eth.getAccounts();
+    window.account = accounts[0]
+
     setAccount(accounts[0]);
 
     const networkId = await web3.eth.net.getId();
@@ -95,11 +99,10 @@ function App() {
 
       for (let i = 1; i <= totalSupply; i++) {
         const character = await charaContract.methods.characters(i - 1).call();
-        characters.push(character);
-        setCharacters(character);
         const owner = await charaContract.methods.ownerOf(i - 1).call();
         if (owner === accounts[0]) {
-          console.log(character);
+          console.log(character)
+          setCharacter(character)
           result.push(character);
         }
       }
@@ -122,7 +125,7 @@ function App() {
       </ControlsWrapper>
       <Monster />
       <Inventory />
-      <Storage inventory={inventory} />
+      <Storage character={character} inventory={inventory} />
     </Container>
   );
 }
