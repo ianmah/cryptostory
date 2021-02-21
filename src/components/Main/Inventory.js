@@ -7,6 +7,7 @@ const AttackButton = styled(Button)`
   height: 15em;
   margin-right: 2em;
   flex-basis: initial;
+  font-family: 'Cool-font';
 `;
 const InventoryButton = styled(Button)`
   background-color: blue;

@@ -7,6 +7,7 @@ const StyledButton = styled.button`
   height: 7em;
   margin-right: 1em;
   flex-basis: calc(50% - 20px);
+  font-family: 'Cool-font'
 `;
 
 export default function Button (props){
