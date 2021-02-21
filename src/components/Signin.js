@@ -13,10 +13,12 @@ const signup = (username) => {
 const StyledButton = styled.button`
   width: 90px;
   font-family: 'Cool-font';
+  height: 32px;
 `;
 
 const StyledInput = styled.input`
   font-family: 'Cool-font';
+  height: 26px;
 `;
 
 const Signin = ({ id }) => {
