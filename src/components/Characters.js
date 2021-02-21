@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import styled from 'styled-components'
 import Character from './Character'
 
@@ -23,9 +23,7 @@ const Characters = ({characters, setCharacter}) => {
                         [character.hair]: true,
                         [character.face]: true,
                     }
-                    return <Character items={characterItems} onClick={() => {
-                        setCharacter(character)
-                    }} action="stand1" />
+                    return <Character items={characterItems} onClick={() => setCharacter(character)} action="stand1" />
                 })
             }
             

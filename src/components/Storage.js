@@ -18,6 +18,15 @@ const Preview = styled.div`
   background-size: 250%;
 `;
 
+const AbsoluteCharacter = styled(Character)`
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    bottom: 50px;
+    position: absolute;
+
+`
 
 const baseBody = {
     2000: true,
@@ -65,7 +74,7 @@ const Storage = ({character, inventory}) => {
             Inventory
             <br/>
         <Preview>
-          <Character items={items} action="stand1" />
+          <AbsoluteCharacter items={items} action="stand1" />
         </Preview>            <br />
             Total Attack: {attack}
             <br />
