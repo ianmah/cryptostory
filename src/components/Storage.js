@@ -16,7 +16,9 @@ const DisplayTitle = styled.div`
 
 const baseBody = {
     2000: true,
-    12000: true
+    12000: true,
+    1060026: true,
+    1040036: true,
 }
 
 const Storage = ({character, inventory}) => {

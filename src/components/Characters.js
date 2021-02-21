@@ -18,6 +18,8 @@ const Characters = ({characters, setCharacter}) => {
                     const characterItems = {
                         2000: true,
                         12000: true,
+                        1060026: true,
+                        1040036: true,
                         [character.hair]: true,
                         [character.face]: true,
                     }
