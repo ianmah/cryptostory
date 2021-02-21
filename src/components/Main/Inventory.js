@@ -38,7 +38,7 @@ const attack = (dmg) => {
 export default function Inventory(props) {
   return (
     <Section>
-        <AttackButton onClick={() => attack(3333)}>Attack</AttackButton>
+        <AttackButton onClick={() => attack(75)}>Attack</AttackButton>
       <BtnContainer>
         <InventoryButton>Inventory</InventoryButton>
         <ShopButton>Shop</ShopButton>
