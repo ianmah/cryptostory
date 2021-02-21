@@ -6,6 +6,7 @@ const AttackButton = styled(Button)`
   width: 15em;
   height: 15em;
   flex-basis: initial;
+  font-family: 'Cool-font';
   background-color: #E64E2C;
   box-shadow: -6px 6px #BC381B, -3px 3px #BC381B, -1px 1px #BC381B;
 `;

@@ -10,6 +10,7 @@ const StyledButton = styled.button`
   height: 7em;
   margin-right: 1em;
   flex-basis: calc(50% - 20px);
+  font-family: 'Cool-font';
   box-shadow: -6px 6px #1778b2, -3px 3px #1778b2, -1px 1px #1778b2;
   transition: all 0.09s ease;
   margin-bottom: 1em;
