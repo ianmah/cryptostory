@@ -54,6 +54,7 @@ function App() {
   const [itemContract, setItemContract] = useState('');
   const [charaContract, setCharaContract] = useState('');
   const [allItems, setAllItems] = useState([]);
+  const [selected, setSelected] = useState('');
 
   const setCharacter = (character) => {
     const ws = window.ws
@@ -139,6 +140,7 @@ function App() {
       
       setAttack(result[0]?.attack.toNumber())
       setCharacters(result)
+      setSelected(result[0])
       setCharacter(characterToItems(result[0] || {}))
       setMarket(marketplace)
     } else {
@@ -177,7 +179,7 @@ function App() {
       <Storage attack={attack} setAttack={setAttack} setCharacter={setCharacter} character={character} inventory={inventory} />
       Characters
       <br/>
-      <Characters attack={attack} setAttack={setAttack} characters={characters} character={character} setCharacter={setCharacter} />
+      <Characters attack={attack} setAttack={setAttack} characters={characters} selected={selected} setSelected={setSelected} setCharacter={setCharacter} />
       {account}
     </Container>
     </>
