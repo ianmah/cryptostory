@@ -35,7 +35,7 @@ const baseBody = {
     1040036: true,
 }
 
-const Storage = ({character, inventory}) => {
+const Storage = ({character = {}, inventory}) => {
 
     const [items, setItems] = useState(baseBody)
     const [attack, setAttack] = useState(0)
