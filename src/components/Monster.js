@@ -53,6 +53,7 @@ const MonsterWrapper = () => {
 
     const [monster, setMonster] = useState({});
     const [users, setUsers] = useState([]);
+    const len = Object.keys(users).length
 
     window.ws.onmessage = (message) => {
         if (message.data !== 'Successful connection!') {
@@ -73,7 +74,8 @@ const MonsterWrapper = () => {
           <Characters>
           {
             users.map((user, i) => {
-              return <StyledCharacter key={i} items={user} action="stabO2" />
+              const flipped = i < len / 2
+              return <StyledCharacter key={i} items={user} action="stabO2" flipped={flipped} />
             })
           }
           </Characters>
