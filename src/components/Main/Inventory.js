@@ -3,12 +3,14 @@ import styled from 'styled-components'
 import Button from './Button'
 
 const AttackButton = styled(Button)`
-  width: 15em;
-  height: 15em;
+  width: 200px;
+  height: 200px;
   flex-basis: initial;
-  font-family: 'Cool-font';
-  background-color: #E64E2C;
-  box-shadow: -6px 6px #BC381B, -3px 3px #BC381B, -1px 1px #BC381B;
+  font-family: "Cool-font";
+  background-color: #e64e2c;
+  box-shadow: -6px 6px #bc381b, -3px 3px #bc381b, -1px 1px #bc381b;
+  font-size: 26px;
+  transform: translateY(10px);
 `;
 
 const InventoryButton = styled(Button)`
