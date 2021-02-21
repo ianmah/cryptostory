@@ -70,7 +70,7 @@ function App() {
       const totalSupply = await itemContract.methods.totalSupply().call();
       const result = [];
 
-      for (var i = 1; i <= totalSupply; i++) {
+      for (let i = 1; i <= totalSupply; i++) {
         const item = await itemContract.methods.items(i - 1).call();
         allItems.push(item);
         setAllItems(allItems);
@@ -92,11 +92,11 @@ function App() {
       const totalSupply = await charaContract.methods.totalSupply().call();
       const result = [];
 
-      for (var i = 1; i <= totalSupply; i++) {
+      for (let i = 1; i <= totalSupply; i++) {
         const character = await charaContract.methods.characters(i - 1).call();
         characters.push(character);
         setCharacters(character);
-        const owner = await charaContract.methods.ownerOf(i).call();
+        const owner = await charaContract.methods.ownerOf(i - 1).call();
         if (owner === accounts[0]) {
           console.log(character);
           result.push(character);
