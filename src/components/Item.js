@@ -7,7 +7,10 @@ const StyledImg = styled.img`
     image-rendering: pixelated;
     padding: 10px;
     &:hover {
-        outline: 3px solid black;
+        outline: 2px solid green;
+    }
+    &.equipped {
+        box-shadow: inset 0 0 10px green;
     }
 `
 const Item = ({id, ...props}) => {
