@@ -41,12 +41,6 @@ function App() {
     initWebsocket();
   }
 
-  const setCharacter = (character) => {
-    const ws = window.ws
-    ws.readyState === 1 && ws.send(JSON.stringify({ newUser: true, color: character }))
-    setCharacterState(character)
-  }
-
   const [characters, setCharacters] = useState([])
   const [character, setCharacterState] = useState({})
 
@@ -58,6 +52,12 @@ function App() {
   const [itemContract, setItemContract] = useState('');
   const [charaContract, setCharaContract] = useState('');
   const [allItems, setAllItems] = useState([]);
+
+  const setCharacter = (character) => {
+    const ws = window.ws
+    account && ws.readyState === 1 && ws.send(JSON.stringify({ newUser: true, username: account, color: character }))
+    setCharacterState(character)
+  }
 
   const [openMarket, setOpenMarket] = useState(false);
   const [market, setMarket] = useState([]);
@@ -135,9 +135,9 @@ function App() {
         marketplace.push(character)
       }
       
-      setAttack(result[0].attack.toNumber())
+      setAttack(result[0]?.attack.toNumber())
       setCharacters(result)
-      setCharacter(characterToItems(result[0]))
+      setCharacter(characterToItems(result[0] || {}))
       setMarket(marketplace)
     } else {
       window.alert(`smart contract not on network`);

@@ -44,6 +44,9 @@ const MonsterWrapper = () => {
           if (data.attack) {
               setMonster(data)
           }
+          if (data.updateUserList) {
+              console.log(data.users)
+          }
         }
     }
 

@@ -26,7 +26,7 @@ const CharacterContainer = styled.div`
     }
 `
 
-const Characters = ({characters, selected, setCharacter, attack, setAttack = () => {}}) => {
+const Characters = ({characters, selected, setCharacter, setAttack = () => {}}) => {
 
     const handleClick = (character) => {
         const characterAttack = character.attack.toNumber()
