@@ -22,8 +22,7 @@ const CharacterContainer = styled.div`
       box-shadow: inset 7px 15px 20px -7px rgba(0, 0, 0, 0.6);
     }
     &.selected {
-      box-shadow: inset 7px 15px 20px -7px rgba(0, 0, 0, 0.6);
-      border: rgba(0, 0, 0, 0.6) solid 1.6px;
+      box-shadow: inset 0 0 0 2px rgba(0, 0, 0, 0.6);
     }
 `
 
