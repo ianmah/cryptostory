@@ -1,20 +1,25 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import Character from './components/Character';
-import Item from './components/Item';
 import CryptoItem from './abis/Item.json';
+import CryptoChara from './abis/Character.json';
 import Monster from './components/Monster';
 import Signin from './components/Signin';
 import initWebsocket from './util/websocket';
 import Inventory from './components/Main/Inventory';
+import Characters from './components/Characters';
 import Storage from './components/Storage';
 import Web3 from 'web3';
+import Minter from './components/Minter';
+
+const ControlsWrapper = styled.div`
+  display: inline-block;
+`;
 
 const Container = styled.div`
   max-width: 600px;
   margin: auto;
   background: #fff;
-  height: 100vh;
+  height: 100%;
 `;
 
 function App() {
@@ -22,13 +27,18 @@ function App() {
     initWebsocket();
   }
 
+  const [characters, setCharacters] = useState([])
+  const [character, setCharacter] = useState({})
+
   const [inventory, setInventory] = useState({
-    items: ['1001021', '1082059'],
+    items: [],
   });
-  
+
   const [account, setAccount] = useState('');
-  const [contract, setContract] = useState(null);
-  
+  const [itemContract, setItemContract] = useState('');
+  const [charaContract, setCharaContract] = useState('');
+  const [allItems, setAllItems] = useState([]);
+
   useEffect(() => {
     loadWeb3();
     loadBlockchainData();
@@ -44,52 +54,85 @@ function App() {
       window.alert('Non-Ethereum browser detected');
     }
   };
-  
+
   const loadBlockchainData = async () => {
     const web3 = window.web3;
     const accounts = await web3.eth.getAccounts();
-    setAccount(accounts[0]);
-    
-    const networkId = await web3.eth.net.getId();
-    const networkData = CryptoItem.networks[networkId];
-    if (networkData) {
-      const abi = CryptoItem.abi;
-      const address = networkData.address;
-      // console.log(address)
-      const contract = new web3.eth.Contract(abi, address);
-      setContract(contract);
-      
-      const totalSupply = await contract.methods.totalSupply().call();
-      console.log(totalSupply);
+    window.account = accounts[0]
 
+    setAccount(accounts[0]);
+
+    const networkId = await web3.eth.net.getId();
+    const itemNetworkData = CryptoItem.networks[networkId];
+    const charaNetworkData = CryptoChara.networks[networkId];
+    if (itemNetworkData) {
+      const abi = CryptoItem.abi;
+      const address = itemNetworkData.address;
+      const itemContract = new web3.eth.Contract(abi, address);
+      setItemContract(itemContract);
+      const totalSupply = await itemContract.methods.totalSupply().call();
       const result = [];
 
-      //load items 
-      for(var i = 1; i <= totalSupply; i++){
-        const owner = await contract.methods.ownerOf(i).call();
+      for (let i = 1; i <= totalSupply; i++) {
+        const item = await itemContract.methods.items(i - 1).call();
+        allItems.push(item);
+        setAllItems(allItems);
+        const owner = await itemContract.methods.ownerOf(i - 1).call();
         if (owner === accounts[0]) {
-          result.push(await contract.methods.items(i - 1).call())
+          console.log(item)
+          result.push({
+            id: item[0],
+            attack: item[2].toNumber()
+          })
         }
       }
-      console.log(result);
       setInventory({
         ...inventory,
-        items: result
-      })
-
+        items: result,
+      });
+    }
+    if (charaNetworkData) {
+      const abi = CryptoChara.abi;
+      const address = charaNetworkData.address;
+      const charaContract = new web3.eth.Contract(abi, address);
+      setCharaContract(charaContract);
+      const totalSupply = await charaContract.methods.totalSupply().call();
+      const result = [];
+      for (let i = 1; i <= totalSupply; i++) {
+        const character = await charaContract.methods.characters(i - 1).call();
+        const owner = await charaContract.methods.ownerOf(i - 1).call();
+        if (owner === accounts[0]) {
+          result.push(character)
+        }
+      }
+      setCharacters(result)
+      setCharacter(result[0])
     } else {
       window.alert(`smart contract not on network`);
     }
   };
 
   return (
+    <>
     <Container>
-      <Signin />
+      <ControlsWrapper>
+        <Signin />
+        <Minter
+          account={account}
+          itemContract={itemContract}
+          charaContract={charaContract}
+          allItems={allItems}
+          setAllItems={setAllItems}
+        />
+      </ControlsWrapper>
       <Monster />
       <Inventory />
-      <Storage inventory={inventory}/>
+      <Storage character={character} inventory={inventory} />
+      <Characters characters={characters} setCharacter={setCharacter} />
+    {account}
     </Container>
-  )
+    </>
+  );
 }
 
 export default App;

@@ -19,11 +19,13 @@ const ShopButton = styled(Button)`
   background-color: brown;
 `
 const Section = styled.section`
-  display:flex;
+  display: flex;
   justify-content: space-evenly;
   align-items: center;
   height: 15em;
-`
+  background-color: #444444;
+  border: #505050 solid 3px;
+`;
 
 const BtnContainer = styled.div`
   display: flex;
@@ -31,7 +33,7 @@ const BtnContainer = styled.div`
   justify-content: space-evenly;
 `;
 
-const attack = (dmg) => {
+const attack = (dmg = 0) => {
   window.ws.send(JSON.stringify({ attack: true, dmg }))
 }
 
@@ -39,7 +41,7 @@ export default function Inventory(props) {
   return (
     <Section>
       <BtnContainer>
-        <AttackButton onClick={() => attack(3333)}>Attack</AttackButton>
+        <AttackButton onClick={() => attack(window.attack)}>Attack</AttackButton>
       </BtnContainer>
       <BtnContainer>
         <InventoryButton>Inventory</InventoryButton>
