@@ -10,25 +10,15 @@ const Container = styled.div`
 
 const Storage = ({inventory}) => {
 
-    const [items, setItems] = useState([
-      {
-        itemId: 2000,
-        version: "220",
-      },
-      {
-        itemId: 12000,
-        version: "220",
-      },
-    ])
+    const [items, setItems] = useState({
+        2000: true,
+        12000: true
+    })
 
     const equip = (item) => {
-        setItems([
-            ...items,
-            {
-                itemId: item,
-                version: "220"
-            }
-        ])
+        const newItems = {...items}
+        newItems[item] = !newItems[item]
+        setItems(newItems)
     }
 
     
