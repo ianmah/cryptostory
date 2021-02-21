@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import Character from './Character'
 
@@ -20,13 +20,15 @@ const CharacterContainer = styled.div`
     
     &:hover {
       box-shadow: inset 7px 15px 20px -7px rgba(0, 0, 0, 0.6);
+      cursor: pointer;
     }
     &.selected {
       box-shadow: inset 0 0 0 2px rgba(0, 0, 0, 0.6);
     }
 `
 
-const Characters = ({characters, selected, setCharacter, setAttack = () => {}}) => {
+const Characters = ({characters, character, setCharacter, setAttack = () => {}}) => {
+    const [selected, setSelected] = useState(character);
 
     const handleClick = (character) => {
         const characterAttack = character.attack.toNumber()
@@ -39,6 +41,7 @@ const Characters = ({characters, selected, setCharacter, setAttack = () => {}}) 
             [character.face]: true,
         }
         setCharacter(characterItems)
+        setSelected(character);
         setAttack(characterAttack)
     }
     
