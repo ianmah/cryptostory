@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import Character from './components/Character';
-import Item from './components/Item';
 import CryptoItem from './abis/Item.json';
 import CryptoChara from './abis/Character.json';
 import Monster from './components/Monster';
@@ -29,7 +27,7 @@ function App() {
   }
 
   const [inventory, setInventory] = useState({
-    items: ['1001021', '1082059'],
+    items: [],
   });
 
   const [account, setAccount] = useState('');
