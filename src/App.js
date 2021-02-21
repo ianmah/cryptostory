@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import Character from "./components/Character";
-import Item from "./components/Item";
 import Monster from "./components/Monster";
 import Signin from './components/Signin'
 import initWebsocket from './util/websocket'
 import Inventory from './components/Main/Inventory';
+import Storage from './components/Storage';
 
 const Container = styled.div`
   max-width: 600px;
@@ -37,11 +37,9 @@ function App() {
     <Container>
       <Signin />
       <Character character={{ items }} action="stand1" />
-      {inventory.items.map((item) => (
-        <Item id={item} />
-      ))}
       <Monster />
       <Inventory />
+      <Storage inventory={inventory}/>
     </Container>
   );
 }
