@@ -7,6 +7,13 @@ const Container = styled.div`
     margin: 1em 0;
 `
 
+const DisplayTitle = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 35px;
+`;
+
 
 const Storage = ({inventory}) => {
 
