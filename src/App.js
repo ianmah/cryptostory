@@ -18,7 +18,7 @@ const Container = styled.div`
   max-width: 600px;
   margin: auto;
   background: #fff;
-  height: 100vh;
+  height: 100%;
 `;
 
 function App() {
@@ -72,9 +72,12 @@ function App() {
         const item = await itemContract.methods.items(i - 1).call();
         allItems.push(item);
         setAllItems(allItems);
-        const owner = await itemContract.methods.ownerOf(i).call();
+        const owner = await itemContract.methods.ownerOf(i - 1).call();
         if (owner === accounts[0]) {
-          result.push(item);
+          result.push({
+            id: item[0],
+            attack: item[2].toNumber()
+          })
         }
       }
       setInventory({

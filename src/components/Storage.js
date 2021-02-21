@@ -22,24 +22,41 @@ const Storage = ({inventory}) => {
         12000: true
     })
 
+    const [attack, setAttack] = useState(0)
+
     const equip = (item) => {
         const newItems = {...items}
-        newItems[item] = !newItems[item]
+        newItems[item.id] = !newItems[item.id]
         setItems(newItems)
+
+        if (newItems[item.id]) {
+            setAttack(attack + item.attack)
+            window.attack = attack + item.attack
+        }
+        else {
+            setAttack(attack - item.attack)
+            window.attack = attack - item.attack
+        }
+        
     }
 
     
     return (
-      <Container>
-        <DisplayTitle>Inventory </DisplayTitle>
-        <br />
-        <Character items={items} action="stand1" />
-        <br />
-        {inventory.items.map((item) => (
-          <Item key={item} onClick={() => equip(item)} id={item} />
-        ))}
-      </Container>
-    );
+        <Container>
+            Inventory
+            <br/>
+            
+            <Character items={items} action="stand1" />
+            <br />
+            Total Attack: {attack}
+            <br />
+            
+            {inventory.items.map((item) => (
+                <Item key={item.id} onClick={() => equip(item)} id={item.id} />
+            ))}
+            
+        </Container>
+    )
     
 }
 
