@@ -79,6 +79,7 @@ function App() {
         setAllItems(allItems);
         const owner = await itemContract.methods.ownerOf(i - 1).call();
         if (owner === accounts[0]) {
+          console.log(item)
           result.push({
             id: item[0],
             attack: item[2].toNumber()
