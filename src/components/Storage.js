@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from 'react'
-import styled from 'styled-components'
-import Item from './Item'
-import Character from './Character'
+import React, { useState, useEffect } from 'react';
+import styled from 'styled-components';
+import Item from './Item';
+import Character from './Character';
 
 const Container = styled.div`
-    margin: 1em 0;
-    text-align: center;
-`
+  margin: 1em 0;
+  text-align: center;
+`;
 
 const Preview = styled.div`
   position: relative;
@@ -19,73 +19,76 @@ const Preview = styled.div`
 `;
 
 const AbsoluteCharacter = styled(Character)`
-    margin-left: auto;
-    margin-right: auto;
-    left: 0;
-    right: 0;
-    bottom: 50px;
-    position: absolute;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
+  bottom: 50px;
+  position: absolute;
+`;
 
-`
+const InventoryWrapper = styled.div`
+  margin: 1em;
+`;
 
 const baseBody = {
-    2000: true,
-    12000: true,
-    1060026: true,
-    1040036: true,
-}
+  2000: true,
+  12000: true,
+  1060026: true,
+  1040036: true,
+};
 
-const Storage = ({character = {}, inventory}) => {
+const Storage = ({ character = {}, inventory }) => {
+  const [items, setItems] = useState(baseBody);
+  const [attack, setAttack] = useState(0);
 
-    const [items, setItems] = useState(baseBody)
-    const [attack, setAttack] = useState(0)
-    
-    useEffect(() => {
-        if (character.hair) {
-            setItems({
-                ...baseBody,
-                [character.hair]: true,
-                [character.face]: true,
-            })
-        }
-        setAttack(0)
-    }, [character.hair, character.face])
-
-
-    const equip = (item) => {
-        const newItems = {...items}
-        newItems[item.id] = !newItems[item.id]
-        setItems(newItems)
-
-        if (newItems[item.id]) {
-            setAttack(attack + item.attack)
-            window.attack = attack + item.attack
-        }
-        else {
-            setAttack(attack - item.attack)
-            window.attack = attack - item.attack
-        }
-        
+  useEffect(() => {
+    if (character.hair) {
+      setItems({
+        ...baseBody,
+        [character.hair]: true,
+        [character.face]: true,
+      });
     }
+    setAttack(0);
+  }, [character.hair, character.face]);
 
-    
-    return (
-        <Container>
-            Inventory
-            <br/>
-        <Preview>
-          <AbsoluteCharacter items={items} action="stand1" />
-        </Preview>            <br />
-            Total Attack: {attack}
-            <br />
-            
-            {inventory.items.map((item) => (
-                <Item key={item.id} onClick={() => equip(item)} id={item.id} />
-            ))}
-            
-        </Container>
-    )
-    
-}
+  const equip = (item) => {
+    const newItems = { ...items };
+    newItems[item.id] = !newItems[item.id];
+    setItems(newItems);
 
-export default Storage
+    if (newItems[item.id]) {
+      setAttack(attack + item.attack);
+      window.attack = attack + item.attack;
+    } else {
+      setAttack(attack - item.attack);
+      window.attack = attack - item.attack;
+    }
+  };
+
+  return (
+    <Container>
+      Inventory
+      <br />
+      <Preview>
+        <AbsoluteCharacter items={items} action="stand1" />
+      </Preview>{' '}
+      <br />
+      Total Attack: {attack}
+      <br />
+      <InventoryWrapper>
+        {inventory.items.map((item) => (
+          <Item
+            key={item.id}
+            onClick={() => equip(item)}
+            id={item.id}
+            className={items[item.id] ? 'equipped' : 'not-equipped'}
+          />
+        ))}
+      </InventoryWrapper>
+    </Container>
+  );
+};
+
+export default Storage;
