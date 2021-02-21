@@ -11,6 +11,10 @@ const app = express();
 const server = http.createServer(app);
 const wss = new WebSocket.Server({ server });
 
+const monsterIds = [
+    '2600225', '2600209', '2600111'
+]
+
 const monster = {
     attack: true,
     id: '2600225',
@@ -58,7 +62,10 @@ wss.on('connection', ws => {
         
         if (data.attack) {
             monster.hp = monster.hp - data.dmg
-            console.log(monster)
+            if (monster.hp <= 0) {
+                monster.hp = 10000
+                monster.id = monsterIds[Math.floor(Math.random() * monsterIds.length)]
+            }
             broadcast(JSON.stringify(monster))
             return
         }
